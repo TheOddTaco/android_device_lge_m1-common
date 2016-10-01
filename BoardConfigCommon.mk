@@ -54,8 +54,7 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 #TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 
 # Camera
-USE_CAMERA_STUB := true
-BOARD_CAMERA_LIBRARIES := libcamera_client.so
+USE_CAMERA_STUB := false
 
 # Wifi
 BOARD_HAS_QCOM_WLAN              := true
