@@ -1,0 +1,11 @@
+/dev/block/mmcblk0p33                       /boot               emmc	defaults 	 	 	 	 	     defaults
+/dev/block/mmcblk0p37                       /system             ext4    defaults                                             defaults
+/dev/block/mmcblk0p37	                    /system_image       emmc    defaults                                             defaults
+/dev/block/mmcblk0p39 	                    /data	 	ext4 	encryptable=/dev/block/bootdevice/by-name/encrypt    defaults
+/dev/block/mmcblk0p38 	                    /cache 	        ext4    defaults                                             defaults
+/dev/block/mmcblk0p30	                    /misc 	        emmc    defaults                                             defaults
+/dev/block/mmcblk0p34 	                    /recovery 	        emmc 	backup=1                                             defaults
+/dev/block/mmcblk0p10 	                    /efs1 	        emmc 	backup=1;display=EFS                                 defaults
+/dev/block/mmcblk0p11	                    /efs2 	        emmc 	backup=1;subpartitionof=/efs1                        defaults
+/dev/block/mmcblk1p1                        /external_sd 	vfat 	defaults                          voldmanaged=external_sd:auto
+/dev/block/sda1 /usb-otg vfat defaults voldmanaged=usb-otg:auto
