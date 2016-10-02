@@ -15,8 +15,8 @@
 #
 
 $(call inherit-product, frameworks/native/build/phone-hdpi-dalvik-heap.mk)
-
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product-if-exists, vendor/lge/m1/m1-vendor.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
@@ -40,6 +40,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
    init.qcom.bt.bluedroid.sh \
    init.qcom.bt.sh
+
+# lib
+PRODUCT_COPY_FILES += \
+    device/lge/m1-common/prebuilt/lib/libcamera_client.so:system/lib/libcamera_client.so
 
 # Permissions
 PRODUCT_COPY_FILES += \

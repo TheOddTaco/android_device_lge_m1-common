@@ -89,7 +89,6 @@ BOARD_HAS_NO_REAL_SDCARD := true
 TW_NO_SCREEN_TIMEOUT := true
 
 # Display
-OVERRIDE_RS_DRIVER:= libRSDriver_adreno.so
 BOARD_EGL_CFG := device/lge/m1-common/egl.cfg
 MAX_EGL_CACHE_KEY_SIZE := 12*1024
 MAX_EGL_CACHE_SIZE := 2048*1024
