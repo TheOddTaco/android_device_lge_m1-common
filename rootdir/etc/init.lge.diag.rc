@@ -1,0 +1,13 @@
+#diag-socket-log
+service diag-socket-log /system/bin/diag_socket_log.sh
+    class main
+    disabled
+    oneshot
+
+on property:service.diag_log.socket.enable=1
+    mkdir /data/diag_logs 0700 root root
+    restorecon /data/diag_logs
+    restart diag-socket-log
+
+on property:service.diag_log.socket.enable=0
+    stop diag-socket-log

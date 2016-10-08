@@ -1,0 +1,53 @@
+on init
+    wait /dev/block/bootdevice/by-name/mpt
+    exec /sbin/setup_fs_static \
+        /dev/block/bootdevice/by-name/mpt \
+        no_reboot
+
+on fs
+    mount_all fstab.${ro.hardware}
+    exec /system/bin/tune2fs -u system -r 10240 /dev/block/bootdevice/by-name/userdata
+
+    # Keeping following partitions outside fstab file. As user may not have
+    # these partition flashed on the device. Failure to mount any partition in fstab file
+    # results in failure to launch late-start class.
+
+    wait /dev/block/bootdevice/by-name/cache
+    exec /system/bin/e2fsck -y /dev/block/bootdevice/by-name/cache
+    mount ext4 /dev/block/bootdevice/by-name/cache /cache nosuid nodev noatime errors=continue barrier=1 data=ordered
+
+    wait /dev/block/bootdevice/by-name/persist
+    exec /system/bin/e2fsck -y /dev/block/bootdevice/by-name/persist
+    mount ext4 /dev/block/bootdevice/by-name/persist /persist nosuid nodev noatime errors=continue barrier=1 data=ordered nodelalloc
+    mkdir /persist/data 0700  system system
+    restorecon_recursive /persist
+
+    wait /dev/block/bootdevice/by-name/drm
+    exec /system/bin/e2fsck -y /dev/block/bootdevice/by-name/drm
+    mount ext4 /dev/block/bootdevice/by-name/drm /persist-lg nosuid nodev noatime errors=continue barrier=1 data=ordered nodelalloc
+
+    wait /dev/block/bootdevice/by-name/sns
+    exec /system/bin/e2fsck -y /dev/block/bootdevice/by-name/sns
+    mount ext4 /dev/block/bootdevice/by-name/sns /sns nosuid nodev noatime errors=continue barrier=1 data=ordered nodelalloc
+
+    mkdir /mpt 0775 system system
+    wait /dev/block/bootdevice/by-name/mpt
+    exec /system/bin/e2fsck -y /dev/block/bootdevice/by-name/mpt
+    mount ext4 /dev/block/bootdevice/by-name/mpt /mpt nosuid nodev barrier=1 noatime noauto_da_alloc  errors=continue
+
+    wait /dev/block/bootdevice/by-name/modem
+    mount vfat /dev/block/bootdevice/by-name/modem /firmware ro context=u:object_r:firmware_file:s0,shortname=lower,uid=1000,gid=1000,dmask=227,fmask=337
+
+service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
+    class late_start
+    oneshot
+
+service fuse_external_SD /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/external_SD /storage/external_SD
+    class late_start
+    disabled
+    oneshot
+
+# Binding fuse mount point to /storage/emulated/legacy
+on property:init.svc.sdcard=running
+    wait /mnt/shell/emulated/0
+    mount none /mnt/shell/emulated/0 /storage/emulated/legacy bind

@@ -1,0 +1,161 @@
+# Copyright (c) 2009-2012, Code Aurora Forum. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above copyright
+#       notice, this list of conditions and the following disclaimer in the
+#       documentation and/or other materials provided with the distribution.
+#     * Neither the name of Code Aurora nor
+#       the names of its contributors may be used to endorse or promote
+#       products derived from this software without specific prior written
+#       permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+# AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+# IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NON-INFRINGEMENT ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+import /init.m1_product.rc
+import /init.m1_sensors.rc
+# BT_S : [CONBT-720] BDADDR_LOADER
+import /init.lge.bt_vendor.rc
+# BT_E : [CONBT-720] BDADDR_LOADER
+
+
+# modem logging (LGODM)
+import /init.lge.modem_log.rc
+# import init script for zram, which is a subset of project Svelte.
+import /init.lge.svelte.rc
+
+on init
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_data
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_data
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_notify
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_notify
+    chown system lgkeyguard /sys/devices/virtual/input/lge_touch/keyguard
+    chmod 664 /sys/devices/virtual/input/lge_touch/keyguard
+
+# Sensor daemon
+#service sensord /system/bin/sensord
+#    user system
+#    group system
+#    class late_start
+#    oneshot
+
+service atd /system/bin/atd /dev/ttyGS0 /dev/smd0
+    socket atd stream 0660 system inet
+    class main
+
+on property:ro.baseband="msm"
+    start atd
+
+#Broadcast Service [hyun118.shin@lge.com]
+service broadcast /system/bin/libbroadcast_server
+    class main
+    user media
+    group system audio media graphics sdcard_rw
+
+
+# HallIC Sensor
+service hallsensord /system/bin/hallsensord
+    class late_start
+    user root
+    group root net_raw
+    disabled
+    oneshot
+
+on property:persist.service.hall_keeponoff=on
+   start hallsensord
+
+on property:persist.service.hall_keeponoff=off
+   stop hallsensord
+
+on property:vold.decrypt=trigger_restart_framework
+   restart hallsensord
+
+on property:init.svc.media=restarting
+    restart broadcast
+
+on boot
+    start rmt_storage
+# Emotional LED
+    chown system system /sys/class/leds/R/device/led_pattern
+    chmod 0644 /sys/class/leds/R/device/led_pattern
+    chown system system /sys/class/leds/R/device/led_blink
+    chmod 0644 /sys/class/leds/R/device/led_blink
+    chown system system /sys/class/leds/R/brightness
+    chmod 0644 /sys/class/leds/R/brightness
+    chown system system /sys/class/leds/G/brightness
+    chmod 0644 /sys/class/leds/G/brightness
+    chown system system /sys/class/leds/B/brightness
+    chmod 0644 /sys/class/leds/B/brightness
+#/* LGE_CHANGE_S, changed owner for antibanding, 2015-4-16, jonghwan.ko@lge.com */
+	chown media media /sys/bus/i2c/drivers/hi351/3-0040/antibanding
+    chmod 0644 /sys/bus/i2c/drivers/hi351/3-0040/antibanding
+#/* LGE_CHANGE_E, changed owner for antibanding, 2015-4-16, jonghwan.ko@lge.com */
+
+    lge_chcon_recursive /data/property u:object_r:property_data_file:s0
+    lge_chcon_recursive /data/security u:object_r:security_file:s0
+    start chcon_keystore
+
+#/* LGE_CHANGE_S, restart qcamerasvr when restarting mediaserver and servicemanager, 2015-4-16, jonghwan.ko@lge.com */
+on property:init.svc.media=restarting
+   restart qcamerasvr
+on property:init.svc.servicemanager=restarting
+   restart qcamerasvr
+#/* LGE_CHANGE_E, restart qcamerasvr when restarting mediaserver and servicemanager, 2015-4-16, jonghwan.ko@lge.com */
+
+#External SD card encryption
+on init
+    setprop ro.ssbd.session /dev/block/bootdevice/by-name/eksst
+    setprop ro.ssbd.offset 0
+
+service chcon_keystore /system/bin/sh /system/etc/init.m1_chcon_keystore.sh
+    disabled
+    oneshot
+    seclabel u:r:keystore:s0
+
+#LGE_CHANGE_S, Advanced MOCA, seungyeol.seo@lge.com
+service moca_service /system/bin/advanced_moca -s
+    class late_start
+    user root
+    group system sdcard_r sdcard_rw radio
+    disabled
+    oneshot
+    socket Full.MOCA.port stream 660 system system
+
+on property:persist.service.moca.enable=1
+   start moca_service
+
+
+service voqas_service /system/bin/voqas -s
+    class late_start
+    user root
+    group system sdcard_r sdcard_rw radio audio
+    disabled
+    oneshot
+    socket Full.VOQAS.port stream 660 system system
+
+on property:sys.voqas.service.enable=1
+   start voqas_service
+
+service moca_service_disable /system/bin/advanced_moca -k
+    class late_start
+    user root
+    group system sdcard_r sdcard_rw radio
+    disabled
+    oneshot
+
+on property:persist.service.moca.enable=0
+   start moca_service_disable
+#LGE_CHANGE_E, Advanced MOCA, seungyeol.seo@lge.com

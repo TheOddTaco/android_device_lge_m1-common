@@ -1,0 +1,40 @@
+# This file will be installed as /init.{ro.hardware}.rc
+import /init.qcom.rc
+import /init.lge.usb.rc
+
+# to override init.qcom.rc
+import /init.msm8909_core.rc
+import /init.lge.power.rc
+import /init.lge.log.rc
+import /init.lge.fs.rc
+import /init.msm8909.fs.rc
+
+# FM Framework
+import /init.fm_vendor.rc
+
+on init
+    # Mount pstore file system on /mnt/pstore
+    mkdir /mnt/pstore 660 system system
+    mount pstore /mnt/pstore /mnt/pstore
+
+on post-fs
+    # ramoops backup function start service
+    start ramoops_backup
+
+# ramoops backup function service
+service ramoops_backup /system/bin/sh /system/etc/ramoops_backup.sh
+    class main
+    disabled
+    oneshot
+
+# enable & disable crash handler, rtb & trace event through property
+service service-crash /system/bin/sh /init.msm8909.crash.sh
+    class main
+    disabled
+    oneshot
+
+on property:persist.service.crash.enable=1
+    restart service-crash
+
+on property:persist.service.crash.enable=0
+    restart service-crash

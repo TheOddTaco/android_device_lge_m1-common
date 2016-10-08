@@ -1,0 +1,66 @@
+# to override this file (device specific .rc)
+import /init.${ro.hardware}_core.rc
+
+on init
+    mount pstore pstore /sys/fs/pstore
+
+on property:ro.build.type=userdebug
+    mount debugfs debugfs /sys/kernel/debug
+
+service pmlog-daemon /system/bin/pmlogd
+    class late_start
+    user root
+    group root
+    oneshot
+
+on property:ro.build.type=userdebug
+    start pmlog-daemon
+
+on property:ro.build.type=eng
+    start pmlog-daemon
+
+on boot
+    start set_emmc_size
+
+on property:persist.enable_coredump=true
+    write /proc/sys/kernel/core_uses_pid "1"
+    mkdir /data/dontpanic
+    chmod 777 /data/dontpanic
+    write /proc/sys/kernel/core_pattern "/data/dontpanic/core.%e.%p.%h.%t"
+
+on post-fs
+    # execute sreadahead daemon to reduce boot-time
+    start sreadahead
+
+# execute sreadahead daemon to reduce boot-time
+service sreadahead /sbin/treadahead
+    oneshot
+    disabled
+    seclabel u:r:sreadahead:s0
+
+# make a diecision whether sreadahead would be performed or not.
+service sreadahead-check /sbin/sreadahead_check
+    class main
+    user root
+    group root
+    oneshot
+    seclabel u:r:sreadahead-check:s0
+
+service set_emmc_size /system/bin/sh /set_emmc_size.sh
+    class main
+    user root
+    group media_rw system sdcard_rw
+    disabled
+    oneshot
+
+on property:persist.sys.emmc_size=4G
+    setprop ro.device.memory.internal 4
+
+on property:persist.sys.emmc_size=8G
+    setprop ro.device.memory.internal 8
+
+on property:persist.sys.emmc_size=16G
+    setprop ro.device.memory.internal 16
+
+on property:persist.sys.emmc_size=32G
+    setprop ro.device.memory.internal 32

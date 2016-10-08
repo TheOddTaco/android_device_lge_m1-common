@@ -1,0 +1,62 @@
+on boot
+	chown system input /sys/devices/virtual/input/lge_accelerometer/poll_delay
+	chown system input /sys/devices/virtual/input/lge_accelerometer/enable
+	chown system input /sys/devices/virtual/input/lge_lpsr/enable_lpsr
+	chown system input /sys/devices/virtual/input/lge_accelerometer/flush
+
+	chown system input /sys/devices/virtual/input/lge_accelerometer/fast_calibration_x
+	chown system input /sys/devices/virtual/input/lge_accelerometer/fast_calibration_y
+	chown system input /sys/devices/virtual/input/lge_accelerometer/fast_calibration_z
+
+	chown system input /sys/devices/virtual/input/lge_accelerometer/name
+	chown system input /sys/devices/virtual/input/lge_accelerometer/range
+	chown system input /sys/devices/virtual/input/lge_accelerometer/run_calibration
+	chown system input /sys/devices/virtual/input/lge_accelerometer/run_fast_calibration
+	chown system input /sys/devices/virtual/input/lge_accelerometer/selftest
+	chown system input /sys/devices/virtual/input/lge_accelerometer/value
+
+	chown system input /sys/devices/virtual/input/lge_proximity/ch0data
+	chown system input /sys/devices/virtual/input/lge_proximity/ch1data
+	chown system input /sys/devices/virtual/input/lge_proximity/enable
+	chown system input /sys/devices/virtual/input/lge_proximity/name
+	chown system input /sys/devices/virtual/input/lge_proximity/pdata
+	chown system input /sys/devices/virtual/input/lge_proximity/prox_cal_data
+	chown system input /sys/devices/virtual/input/lge_proximity/ppcount
+	chown system input /sys/devices/virtual/input/lge_proximity/piht
+	chown system input /sys/devices/virtual/input/lge_proximity/pilt
+	chown system input /sys/devices/virtual/input/lge_proximity/run_calibration
+	chown system input /sys/devices/virtual/input/lge_proximity/pdrive
+	chown system input /sys/devices/virtual/input/lge_proximity/prox_cal_data
+	chown system input /sys/devices/virtual/input/lge_proximity/near_offset
+	chown system input /sys/devices/virtual/input/lge_proximity/far_offset
+
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/poll_delay
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/enable
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/flush
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/fast_calibration_x
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/fast_calibration_y
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/fast_calibration_z
+	chmod 0440 /sys/devices/virtual/input/lge_accelerometer/name
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/range
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/run_calibration
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/run_fast_calibration
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/selftest
+	chmod 0440 /sys/devices/virtual/input/lge_accelerometer/value
+	chmod 0660 /sys/devices/virtual/input/lge_accelerometer/fast_calibration_result
+
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/ch0data
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/ch1data
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/enable
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/name
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/pdata
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/prox_cal_data
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/ppcount
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/piht
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/pilt
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/run_calibration
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/pdrive
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/prox_cal_data
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/near_offset
+	chmod 0660 /sys/devices/virtual/input/lge_proximity/far_offset
+
+mkdir /sns 0770 system system
