@@ -16,7 +16,7 @@
 
 $(call inherit-product, frameworks/native/build/phone-hdpi-dalvik-heap.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product-if-exists, vendor/lge/m1/m1-vendor.mk)
+$(call inherit-product, vendor/lge/m1/m1-vendor-blobs.mk)
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
