@@ -1,0 +1,23 @@
+# Platform
+TARGET_BOARD_PLATFORM := msm8909
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno306
+
+# Architecture
+TARGET_ARCH := arm
+TARGET_ARCH_VARIANT := armv7-a-neon
+TARGET_ARCH_VARIANT_CPU := cortex-a9
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_CPU_SMP := true
+TARGET_CPU_VARIANT := cortex-a7
+
+# Init
+TARGET_INIT_VENDOR_LIB := libinit_msm8909
+TARGET_PLATFORM_DEVICE_BASE := /devices/soc.0/
+TARGET_RECOVERY_DEVICE_MODULES := libinit_msm8909
+
+# Qualcomm support
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QC_TIME_SERVICES := true
+TARGET_POWERHAL_VARIANT := qcom
+TARGET_RIL_VARIANT := caf
