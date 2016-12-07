@@ -1,0 +1,212 @@
+# Copyright (c) 2013-2014, The Linux Foundation. All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are
+# met:
+#     * Redistributions of source code must retain the above copyright
+#       notice, this list of conditions and the following disclaimer.
+#     * Redistributions in binary form must reproduce the above
+#       copyright notice, this list of conditions and the following
+#       disclaimer in the documentation and/or other materials provided
+#       with the distribution.
+#     * Neither the name of The Linux Foundation nor the names of its
+#       contributors may be used to endorse or promote products derived
+#       from this software without specific prior written permission.
+#
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY EXPRESS OR IMPLIED
+# WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
+# MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT
+# ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+# BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE
+# OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN
+# IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+#
+
+on boot
+
+    # START touch_driver
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_data
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_data
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_notify
+    chmod 664 /sys/devices/virtual/input/lge_touch/lpwg_notify
+    chown system lgkeyguard /sys/devices/virtual/input/lge_touch/keyguard
+    chmod 664 /sys/devices/virtual/input/lge_touch/keyguard
+    chown system system /sys/devices/virtual/input/lge_touch/dsv
+    chmod 600 /sys/devices/virtual/input/lge_touch/dsv
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_debug
+    chmod 600 /sys/devices/virtual/input/lge_touch/lpwg_debug
+    chown system system /sys/devices/virtual/input/lge_touch/lpwg_fail_reason
+    chmod 600 /sys/devices/virtual/input/lge_touch/lpwg_fail_reason
+    chown system system /sys/devices/virtual/input/lge_touch/sensor_value
+    chmod 600 /sys/devices/virtual/input/lge_touch/sensor_value
+    chown system system /sys/devices/virtual/input/lge_touch/enable_sensor_interlock
+    chmod 600 /sys/devices/virtual/input/lge_touch/enable_sensor_interlock
+
+    # LGE BMA2X2 Sensor
+    chown system input /sys/devices/virtual/input/lge_accelerometer/SleepDur
+    chown system input /sys/devices/virtual/input/lge_accelerometer/bandwidth
+    chown system input /sys/devices/virtual/input/lge_accelerometer/cal_result
+    chown system input /sys/devices/virtual/input/lge_accelerometer/chip_id
+    chown system input /sys/devices/virtual/input/lge_magnetometer/chip_id
+    chown system input /sys/devices/virtual/input/lge_accelerometer/cnt
+    chown system input /sys/devices/virtual/input/lge_magnetometer/cnt
+    chown system input /sys/devices/virtual/input/lge_accelerometer/delay
+    chown system input /sys/devices/virtual/input/lge_magnetometer/delay
+    chown system input /sys/devices/virtual/input/lge_accelerometer/diag
+    chown system input /sys/devices/virtual/input/lge_magnetometer/diag
+    chown system input /sys/devices/virtual/input/lge_proximity/enable
+    chown system input /sys/devices/virtual/input/lge_accelerometer/enable
+    chown system input /sys/devices/virtual/input/lge_magnetometer/enable
+    chown system input /sys/devices/virtual/input/lge_accelerometer/enable_int
+    chown system input /sys/devices/virtual/input/lge_accelerometer/fast_calibration_x
+    chown system input /sys/devices/virtual/input/lge_accelerometer/fast_calibration_y
+    chown system input /sys/devices/virtual/input/lge_accelerometer/fast_calibration_z
+    chown system input /sys/devices/virtual/input/lge_accelerometer/mode
+    chown system input /sys/devices/virtual/input/lge_proximity/name
+    chown system input /sys/devices/virtual/input/lge_accelerometer/name
+    chown system input /sys/devices/virtual/input/lge_magnetometer/name
+    chown system input /sys/devices/virtual/input/lge_accelerometer/offset_x
+    chown system input /sys/devices/virtual/input/lge_accelerometer/offset_y
+    chown system input /sys/devices/virtual/input/lge_accelerometer/offset_z
+    chown system input /sys/devices/virtual/input/lge_accelerometer/orient_blocking
+    chown system input /sys/devices/virtual/input/lge_accelerometer/orient_hyst
+    chown system input /sys/devices/virtual/input/lge_accelerometer/orient_mode
+    chown system input /sys/devices/virtual/input/lge_accelerometer/orient_theta
+    chown system input /sys/devices/virtual/input/lge_proximity/phys
+    chown system input /sys/devices/virtual/input/lge_accelerometer/phys
+    chown system input /sys/devices/virtual/input/lge_magnetometer/phys
+    chown system input /sys/devices/virtual/input/lge_accelerometer/place
+    chown system input /sys/devices/virtual/input/lge_magnetometer/place
+    chown system input /sys/devices/virtual/input/lge_proximity/properties
+    chown system input /sys/devices/virtual/input/lge_accelerometer/properties
+    chown system input /sys/devices/virtual/input/lge_magnetometer/properties
+    chown system input /sys/devices/virtual/input/lge_accelerometer/range
+    chown system input /sys/devices/virtual/input/lge_accelerometer/reg
+    chown system input /sys/devices/virtual/input/lge_magnetometer/reg
+    chown system input /sys/devices/virtual/input/lge_proximity/run_calibration
+    chown system input /sys/devices/virtual/input/lge_accelerometer/run_calibration
+    chown system input /sys/devices/virtual/input/lge_accelerometer/run_fast_calibration
+    chown system input /sys/devices/virtual/input/lge_accelerometer/selftest
+    chown system input /sys/devices/virtual/input/lge_accelerometer/softreset
+    chown system input /sys/devices/virtual/input/lge_proximity/value
+    chown system input /sys/devices/virtual/input/lge_accelerometer/value
+    chown system input /sys/devices/virtual/input/lge_magnetometer/value
+    chown system input /sys/devices/virtual/input/lge_accelerometer/x
+    chown system input /sys/devices/virtual/input/lge_magnetometer/x
+    chown system input /sys/devices/virtual/input/lge_accelerometer/y
+    chown system input /sys/devices/virtual/input/lge_magnetometer/y
+    chown system input /sys/devices/virtual/input/lge_accelerometer/z
+    chown system input /sys/devices/virtual/input/lge_magnetometer/z
+    chown system input /sys/devices/virtual/input/lge_magnetometer/odr
+    chown system input /sys/devices/virtual/input/lge_magnetometer/op_mode
+    chown system input /sys/devices/virtual/input/lge_magnetometer/rept_xy
+    chown system input /sys/devices/virtual/input/lge_magnetometer/rept_z
+    chown system input /sys/devices/virtual/input/lge_magnetometer/test
+    chown system input /sys/devices/virtual/input/lge_accelerometer/fast_calibration_result
+    chown system input /sys/devices/virtual/input/lge_proximity/bright_threshold
+    chown system input /sys/devices/virtual/input/lge_proximity/dark_threshold
+    chown system input /sys/devices/virtual/input/lge_proximity/ch0data
+    chown system input /sys/devices/virtual/input/lge_proximity/ch1data
+    chown system input /sys/devices/virtual/input/lge_proximity/ppcount
+
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/SleepDur
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/bandwidth
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/cal_result
+    chmod 0440 /sys/devices/virtual/input/lge_accelerometer/chip_id
+    chmod 0440 /sys/devices/virtual/input/lge_magnetometer/chip_id
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/cnt
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/cnt
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/delay
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/delay
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/diag
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/diag
+    chmod 0660 /sys/devices/virtual/input/lge_proximity/enable
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/enable
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/enable
+    chmod 0220 /sys/devices/virtual/input/lge_accelerometer/enable_int
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/fast_calibration_x
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/fast_calibration_y
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/fast_calibration_z
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/mode
+    chmod 0440 /sys/devices/virtual/input/lge_proximity/name
+    chmod 0440 /sys/devices/virtual/input/lge_accelerometer/name
+    chmod 0440 /sys/devices/virtual/input/lge_magnetometer/name
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/offset_x
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/offset_y
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/offset_z
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/orient_blocking
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/orient_hyst
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/orient_mode
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/orient_theta
+    chmod 0660 /sys/devices/virtual/input/lge_proximity/phys
+    chmod 0440 /sys/devices/virtual/input/lge_accelerometer/phys
+    chmod 0440 /sys/devices/virtual/input/lge_magnetometer/phys
+    chmod 0440 /sys/devices/virtual/input/lge_accelerometer/place
+    chmod 0440 /sys/devices/virtual/input/lge_magnetometer/place
+    chmod 0440 /sys/devices/virtual/input/lge_proximity/properties
+    chmod 0440 /sys/devices/virtual/input/lge_accelerometer/properties
+    chmod 0440 /sys/devices/virtual/input/lge_magnetometer/properties
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/range
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/reg
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/reg
+    chmod 0660 /sys/devices/virtual/input/lge_proximity/run_calibration
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/run_calibration
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/run_fast_calibration
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/selftest
+    chmod 0220 /sys/devices/virtual/input/lge_accelerometer/softreset
+    chmod 0660 /sys/devices/virtual/input/lge_proximity/value
+    chmod 0440 /sys/devices/virtual/input/lge_accelerometer/value
+    chmod 0440 /sys/devices/virtual/input/lge_magnetometer/value
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/x
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/x
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/y
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/y
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/z
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/z
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/odr
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/op_mode
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/rept_xy
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/rept_z
+    chmod 0660 /sys/devices/virtual/input/lge_magnetometer/test
+    chmod 0660 /sys/devices/virtual/input/lge_accelerometer/fast_calibration_result
+    chmod 0660 /sys/devices/virtual/input/lge_proximity/bright_threshold
+    chmod 0660 /sys/devices/virtual/input/lge_proximity/dark_threshold
+    chmod 0440 /sys/devices/virtual/input/lge_proximity/ch0data
+    chmod 0440 /sys/devices/virtual/input/lge_proximity/ch1data
+    chmod 0660 /sys/devices/virtual/input/lge_proximity/ppcount
+
+    # Charger
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+
+# Charger
+on charger
+    wait /dev/block/bootdevice/by-name/system
+    mount ext4 /dev/block/bootdevice/by-name/system /system ro barrier=1
+    chown root system /sys/class/power_supply/bms/current_now
+    chown root system /sys/class/power_supply/bms/voltage_ocv
+    chmod 0664 /sys/class/power_supply/bms/current_now
+    chmod 0664 /sys/class/power_supply/bms/voltage_ocv
+    write /sys/class/android_usb/android0/enable 0
+    write /sys/class/android_usb/android0/idVendor 1004
+    write /sys/class/android_usb/android0/idProduct 6300
+    write /sys/class/android_usb/android0/bDeviceClass 0
+    write /sys/class/android_usb/android0/bDeviceSubClass 0
+    write /sys/class/android_usb/android0/bDeviceProtocol 0
+    write /sys/class/android_usb/android0/functions charge_only
+    write /sys/class/android_usb/android0/enable 1
+    start vm_bms
+
+on post-fs-data
+
+service vm_bms /system/bin/vm_bms
+    class core
+    user root
+group root
